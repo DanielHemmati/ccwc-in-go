@@ -1,43 +1,25 @@
 package main
 
 import (
-	"bufio"
+	"flag"
 	"fmt"
-	"os"
+	"log"
 )
 
-func readFile(filePath string) (string, error) {
-	file, err := os.Open(filePath)
-
-	if err != nil {
-		return "", err
-	}
-
-	defer file.Close()
-
-	var content string
-	scanner := bufio.NewScanner(file)
-
-	for scanner.Scan() {
-		content += scanner.Text() + "\n"
-	}
-
-	if err := scanner.Err(); err != nil {
-		return "", err
-	}
-
-	return content, nil
-}
-
 func main() {
-	Mem()
+	var printBytes bool
 
-	_, err := readFile("./data/test.txt")
+	flag.BoolVar(&printBytes, "c", false, "print the byte/s count")
 
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		return
+	flag.Parse()
+
+	if printBytes {
+		info, err := Stat("./data/test.txt")
+
+		if err != nil {
+			log.Fatalf("could not stat file: %v", err)
+		}
+
+		fmt.Printf("File size: %d bytes\n", info.Size())
 	}
-
-	Mem()
 }
