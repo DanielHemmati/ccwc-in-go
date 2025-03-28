@@ -13,8 +13,10 @@ func main() {
 
 	flag.Parse()
 
+	filename := flag.Arg(0)
+
 	if printBytes {
-		info, err := Stat("./data/test.txt")
+		info, err := Stat(filename)
 
 		if err != nil {
 			log.Fatalf("could not stat file: %v", err)
