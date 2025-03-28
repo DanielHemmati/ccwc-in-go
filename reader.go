@@ -2,32 +2,49 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"io"
 	"os"
-	"strings"
+	"unicode"
 )
 
-func Readfile(filePath string) (string, error) {
+func CountLinesWordsBytes(filePath string) (lines, words, bytes int, err error) {
 	file, err := os.Open(filePath)
 
 	if err != nil {
-		return "", err
+		// even though i can just write `return` (naked return) i rather to be explicit
+		// until i get use to it
+		return 0, 0, 0, err
 	}
 
 	defer file.Close()
 
-	// var content string
-	var builder strings.Builder
-	scanner := bufio.NewScanner(file)
+	reader := bufio.NewReader(file)
+	inWord := false
 
-	for scanner.Scan() {
-		builder.WriteString(scanner.Text())
-		builder.WriteByte('\n')
+	for {
+		char, size, err := reader.ReadRune()
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			return 0, 0, 0, err
+		}
+
+		bytes += size
+
+		if char == '\n' {
+			lines++
+		}
+
+		// this is the coolest part i have seen until now
+		if unicode.IsSpace(char) {
+			inWord = false
+		} else if !inWord {
+			inWord = true
+			words++
+		}
 	}
 
-	if err := scanner.Err(); err != nil {
-		return "", fmt.Errorf("error reading file: %w", err)
-	}
-
-	return builder.String(), nil
+	return
 }

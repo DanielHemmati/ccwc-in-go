@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var printBytes bool
+	var printBytes, printLines, printChars bool
 
 	flag.BoolVar(&printBytes, "c", false, "print the byte/s count")
 
