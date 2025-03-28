@@ -17,6 +17,7 @@ func readFile(filePath string) (string, error) {
 
 	var content string
 	scanner := bufio.NewScanner(file)
+
 	for scanner.Scan() {
 		content += scanner.Text() + "\n"
 	}
@@ -29,12 +30,14 @@ func readFile(filePath string) (string, error) {
 }
 
 func main() {
-	content, err := readFile("./data/test.txt")
+	Mem()
+
+	_, err := readFile("./data/test.txt")
 
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		return
 	}
 
-	fmt.Println(content)
+	Mem()
 }
