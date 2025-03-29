@@ -85,4 +85,3 @@ I studied other codes who have completed this challenge in Go. Here is the list:
 - [Hruthik Reddy Yarala](https://github.com/yaralahruthik/cc-wc)
 
 Also I used project like [lazygit](https://github.com/jesseduffield/lazygit) and [lazydocker](https://github.com/jesseduffield/lazydocker) to help me understand how to use Go in a large scale project.
-
