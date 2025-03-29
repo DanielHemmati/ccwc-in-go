@@ -21,6 +21,13 @@ func main() {
 	filename := flag.Arg(0)
 	var res []string
 
+	//  if no filename, or there is not stdin then just show the usage
+	stat, _ := os.Stdin.Stat()
+	if flag.NArg() == 0 && (stat.Mode()&os.ModeCharDevice) != 0 {
+		flag.Usage()
+		os.Exit(1)
+	}
+
 	// if you run `wc ./data/test.txt` you will get only these outputs
 	if !printChars && !printWords && !printBytes && !printLines {
 		printLines = true
