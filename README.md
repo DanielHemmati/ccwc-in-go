@@ -63,6 +63,19 @@ docker build -t ccwc .
 docker run -it ccwc # or with any flag like above
 ```
 
+## Project Structure
+
+This section provides an overview of the purpose of the key files in this project:
+
+- **main.go**: The main entry point of the application. It handles command-line arguments, processes the input file or standard input, and prints the results.
+- **reader.go**: Contains the `CountLinesWordsBytes` function, which counts the number of lines, words, and bytes in a given file. This function does the most of the work.
+- **stdin_util.go**: Contains the `StdinUtil` function, which opens the file provided as a command-line argument or returns the standard input if no file is specified.
+- **stat.go**: Contains the `Stat` function, which retrieves and returns the file information for a given file path, including details such as file size, permissions, and modification time. (You can use this instead of `reader.go` file)
+- **mem.go**: Contains the `Mem` function, which returns the memory usage of the program. Just put `Mem()` in the beginning and end of the `main` function.
+- **reader_test.go**: Contains the tests for the `CountLinesWordsBytes` function.
+
+
+
 ## Credits
 
 I studied other codes who have completed this challenge in Go. Here is the list:
