@@ -16,21 +16,13 @@ type FileStat struct {
 }
 
 // i feel like my error handling is not that good
-func CountLinesWordsBytes(filePath string) (FileStat, error) {
+func CountLinesWordsBytes(filePath *os.File) (FileStat, error) {
 	var bytes int
 	var chars int
 	var words int
 	var lines int
 
-	file, err := os.Open(filePath)
-
-	if err != nil {
-		return FileStat{}, err
-	}
-
-	defer file.Close()
-
-	reader := bufio.NewReader(file)
+	reader := bufio.NewReader(filePath)
 	inWord := false
 
 	for {

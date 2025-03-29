@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -24,37 +25,39 @@ func main() {
 		printLines = true
 		printWords = true
 		printBytes = true
-		// it's not written in the challenge description
-		// but why not
-		printChars = true
 	}
 
-	fileInfo, err := CountLinesWordsBytes(filename)
+	file, err := StdinUtil()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if file != os.Stdin {
+		defer file.Close()
+	}
+
+	fileInfo, err := CountLinesWordsBytes(file)
 
 	if err != nil {
 		log.Fatal("error counting lines, words, and bytes")
-	}
-
-	if printBytes {
-		stat, err := Stat(filename)
-		if err != nil {
-			log.Fatal("could not stat file", err)
-		}
-		res = append(res, strconv.FormatInt(stat.Size(), 10))
-	}
-
-	if printChars {
-		res = append(res, strconv.Itoa(fileInfo.chars))
-	}
-
-	if printWords {
-		res = append(res, strconv.Itoa(fileInfo.words))
 	}
 
 	if printLines {
 		res = append(res, strconv.Itoa(fileInfo.line))
 	}
 
+	if printWords {
+		res = append(res, strconv.Itoa(fileInfo.words))
+	}
+
+	if printChars {
+		res = append(res, strconv.Itoa(fileInfo.chars))
+	}
+
+	if printBytes {
+		res = append(res, strconv.FormatInt(int64(fileInfo.bytes), 10))
+	}
+
 	res = append(res, filename)
+
 	fmt.Println(strings.Join(res, " "))
 }
