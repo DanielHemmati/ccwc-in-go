@@ -54,7 +54,7 @@ Usage of ./ccwc:
 
 ## Why Dockerfile
 
-I was really to see how does a Go project Dockerfile looks like, turn out it's really simple.
+I was curious to see what a Go project Dockerfile looks like; it turns out it's really simple.  
 
 Just build the image and run it:
 
@@ -65,7 +65,7 @@ docker run -it ccwc # or with any flag like above
 
 ## Credits
 
-I studied other codes who have completed this challenge in Go and other languages. Here are the list:
+I studied other codes who have completed this challenge in Go. Here is the list:
 
 - [André Brandão](https://github.com/andrenbrandao/wc-tool)
 - [PraveshGoyal](https://github.com/praveshdev3/wc-go)
