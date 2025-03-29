@@ -21,6 +21,7 @@ func main() {
 	filename := flag.Arg(0)
 	var res []string
 
+	// if you run `wc ./data/test.txt` you will get only these outputs
 	if !printChars && !printWords && !printBytes && !printLines {
 		printLines = true
 		printWords = true
