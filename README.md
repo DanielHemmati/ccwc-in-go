@@ -4,12 +4,7 @@ This is my first project in Go.
 
 ## Todo:
 
-- [ ] Add tests
-- [ ] Add benchmarks
+- [x] Add tests
+- [x] Add benchmarks (see)
 - [ ] Make a Dockerfile
-- [ ] remove extra byte at the beginnig of the file (UTF-8 BOM `\ufeff`)
-
-
-## Question:
-
-- Why only `Th` is showing up
+- [ ] Add `--help` flag

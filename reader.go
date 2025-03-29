@@ -57,5 +57,5 @@ func CountLinesWordsBytes(filePath *os.File) (FileStat, error) {
 		}
 	}
 
-	return FileStat{chars: chars, line: lines, bytes: bytes, words: words}, nil
+	return FileStat{line: lines, words: words, chars: chars, bytes: bytes}, nil
 }
