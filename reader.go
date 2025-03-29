@@ -3,17 +3,29 @@ package main
 import (
 	"bufio"
 	"io"
+	"log"
 	"os"
 	"unicode"
 )
 
-func CountLinesWordsBytes(filePath string) (lines, words, bytes int, err error) {
+type FileStat struct {
+	line  int
+	words int
+	bytes int
+	chars int
+}
+
+// i feel like my error handling is not that good
+func CountLinesWordsBytes(filePath string) (FileStat, error) {
+	var bytes int
+	var chars int
+	var words int
+	var lines int
+
 	file, err := os.Open(filePath)
 
 	if err != nil {
-		// even though i can just write `return` (naked return) i rather to be explicit
-		// until i get use to it
-		return 0, 0, 0, err
+		return FileStat{}, err
 	}
 
 	defer file.Close()
@@ -28,10 +40,17 @@ func CountLinesWordsBytes(filePath string) (lines, words, bytes int, err error) 
 		}
 
 		if err != nil {
-			return 0, 0, 0, err
+			log.Fatal("error reading file")
 		}
 
+		// accumlates the total size
 		bytes += size
+		// numbero of chars is differnet from number of bytes
+		// if the file contains sth like this: `A😊你`
+		// rune count (chars): 3
+		// byte count = 1 + 4 + 3 = 8
+		// yeah emojis are 4 bytes
+		chars++
 
 		if char == '\n' {
 			lines++
@@ -46,5 +65,5 @@ func CountLinesWordsBytes(filePath string) (lines, words, bytes int, err error) 
 		}
 	}
 
-	return
+	return FileStat{chars: chars, line: lines, bytes: bytes, words: words}, nil
 }
