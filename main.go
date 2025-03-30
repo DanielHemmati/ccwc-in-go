@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
-	"strconv"
-	"strings"
+	// "strconv"
+	// "strings"
 )
 
 func main() {
@@ -19,7 +20,8 @@ func main() {
 	flag.Parse()
 
 	filename := flag.Arg(0)
-	var res []string
+
+	var out io.Writer = os.Stdout
 
 	//  if no filename, or there is not stdin then just show the usage
 	stat, _ := os.Stdin.Stat()
@@ -35,13 +37,12 @@ func main() {
 		printBytes = true
 	}
 
-	file, err := StdinUtil()
+	// file, err := StdinUtil()
+	file, err := GetInputReader()
 	if err != nil {
 		log.Fatal(err)
 	}
-	if file != os.Stdin {
-		defer file.Close()
-	}
+	defer file.Close()
 
 	fileInfo, err := CountLinesWordsBytes(file)
 
@@ -50,22 +51,20 @@ func main() {
 	}
 
 	if printLines {
-		res = append(res, strconv.Itoa(fileInfo.line))
+		fmt.Fprintf(out, "%d ", fileInfo.line)
 	}
 
 	if printWords {
-		res = append(res, strconv.Itoa(fileInfo.words))
-	}
-
-	if printChars {
-		res = append(res, strconv.Itoa(fileInfo.chars))
+		fmt.Fprintf(out, "%d ", fileInfo.words)
 	}
 
 	if printBytes {
-		res = append(res, strconv.FormatInt(int64(fileInfo.bytes), 10))
+		fmt.Fprintf(out, "%d ", fileInfo.bytes)
 	}
 
-	res = append(res, filename)
+	if printChars {
+		fmt.Fprintf(out, "%d ", fileInfo.chars)
+	}
 
-	fmt.Println(strings.Join(res, " "))
+	fmt.Fprintf(out, filename)
 }

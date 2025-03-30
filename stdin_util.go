@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"io"
 	"os"
 )
 
@@ -20,4 +21,19 @@ func StdinUtil() (*os.File, error) {
 	}
 
 	return file, nil
+}
+
+// Thanks to: https://x.com/beetbox_games/status/1906145899719372991 suggestion
+func GetInputReader() (io.ReadCloser, error) {
+	var r io.Reader = os.Stdin
+	var err error
+
+	if f := flag.Arg(0); f != "" {
+		r, err = os.Open(f)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return io.NopCloser(r), nil
 }

@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"io"
 	"log"
-	"os"
+	// "os"
 	"unicode"
 )
 
@@ -16,7 +16,7 @@ type FileStat struct {
 }
 
 // i feel like my error handling is not that good
-func CountLinesWordsBytes(filePath *os.File) (FileStat, error) {
+func CountLinesWordsBytes(filePath io.Reader) (FileStat, error) {
 	var bytes int
 	var chars int
 	var words int
