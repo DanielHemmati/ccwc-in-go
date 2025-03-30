@@ -6,8 +6,6 @@ import (
 	"io"
 	"log"
 	"os"
-	// "strconv"
-	// "strings"
 )
 
 func main() {
