@@ -1,6 +1,6 @@
 # Build your own wc in go
 
-![ccwc.png](./docs/ccwc.png)
+![ccwc.png](./docs/header.png)
 
 ## Intro
 
@@ -10,15 +10,15 @@ I began learning Go and wanted to work on a project to enhance my skills. I disc
 
 Make sure you have Go [installed](https://go.dev/doc/install).
 
-Then clone the repo and run `make build` in the root directory.  
+Then clone the repo and run `make build` in the root directory.
 
 Then you can write this command:
 
-```bash 
+```bash
 
 # Without any flags will show the help message
 
-> ./ccwc 
+> ./ccwc
 Usage of ./ccwc:
   -c    print the byte/s count
   -l    print the line count
@@ -54,7 +54,7 @@ Usage of ./ccwc:
 
 ## Why Dockerfile
 
-I was curious to see what a Go project Dockerfile looks like; it turns out it's really simple.  
+I was curious to see what a Go project Dockerfile looks like; it turns out it's really simple.
 
 Just build the image and run it:
 
@@ -73,8 +73,6 @@ This section provides an overview of the purpose of the key files in this projec
 - **stat.go**: Contains the `Stat` function, which retrieves and returns the file information for a given file path, including details such as file size, permissions, and modification time. (You can use this instead of `reader.go` file)
 - **mem.go**: Contains the `Mem` function, which returns the memory usage of the program. Just put `Mem()` in the beginning and end of the `main` function.
 - **reader_test.go**: Contains the tests for the `CountLinesWordsBytes` function.
-
-
 
 ## Credits
 

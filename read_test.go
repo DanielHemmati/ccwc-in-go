@@ -12,6 +12,8 @@ func TestRead(t *testing.T) {
 		if err != nil {
 			log.Fatal(err)
 		}
+		defer f.Close()
+
 		got, _ := CountLinesWordsBytes(f)
 		want := FileStat{line: 1, words: 4, chars: 20, bytes: 20}
 
@@ -25,6 +27,8 @@ func TestRead(t *testing.T) {
 		if err != nil {
 			log.Fatal(err)
 		}
+		defer f.Close()
+
 		got, _ := CountLinesWordsBytes(f)
 		want := FileStat{line: 791, words: 10859, chars: 61031, bytes: 61031}
 
